@@ -23,8 +23,8 @@ null::sysinit:/bin/ln -sf /proc/self/fd/0 /dev/stdin
 null::sysinit:/bin/ln -sf /proc/self/fd/1 /dev/stdout
 null::sysinit:/bin/ln -sf /proc/self/fd/2 /dev/stderr
 
-# Remount the main partition read-write in case it was read-only
-::sysinit:/bin/mount -o remount,rw /boot
+# Remount the main partition read-write, nodev, nosuid
+::sysinit:/bin/mount -o remount,rw,nodev,nosuid /boot
 
 # now run any rc scripts
 ::sysinit:/etc/init.d/rcS
