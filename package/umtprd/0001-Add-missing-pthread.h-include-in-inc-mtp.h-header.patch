@@ -1,0 +1,28 @@
+From 6572d07a68466aaa3a7efcb4a55cc61ff31cfde3 Mon Sep 17 00:00:00 2001
+From: Paul Cercueil <paul@crapouillou.net>
+Date: Thu, 30 May 2019 00:23:11 +0200
+Subject: [PATCH] Add missing <pthread.h> include in inc/mtp.h header
+
+This fixes the build under GCC 8 with the musl C library.
+
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+---
+ inc/mtp.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/inc/mtp.h b/inc/mtp.h
+index 238de68..5f5b804 100644
+--- a/inc/mtp.h
++++ b/inc/mtp.h
+@@ -26,6 +26,8 @@
+ #ifndef _INC_MTP_H_
+ #define _INC_MTP_H_
+ 
++#include <pthread.h>
++
+ #define MAX_STORAGE_NB 16
+ #define MAX_CFG_STRING_SIZE 512
+ 
+-- 
+2.21.0.593.g511ec345e18
+
