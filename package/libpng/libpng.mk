@@ -4,8 +4,14 @@
 #
 ################################################################################
 
+ifeq ($(BR2_PACKAGE_LIBPNG_14),y)
+LIBPNG_VERSION = 1.4.22
+LIBPNG_SERIES = 14
+else
 LIBPNG_VERSION = 1.6.36
 LIBPNG_SERIES = 16
+endif
+
 LIBPNG_SOURCE = libpng-$(LIBPNG_VERSION).tar.xz
 LIBPNG_SITE = http://downloads.sourceforge.net/project/libpng/libpng$(LIBPNG_SERIES)/$(LIBPNG_VERSION)
 LIBPNG_LICENSE = Libpng-2.0

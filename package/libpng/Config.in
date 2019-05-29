@@ -6,3 +6,10 @@ config BR2_PACKAGE_LIBPNG
 	  images.
 
 	  http://www.libpng.org/
+
+if BR2_PACKAGE_LIBPNG
+
+config BR2_PACKAGE_LIBPNG_14
+	bool "Use libpng version 1.4 instead of 1.6"
+
+endif
