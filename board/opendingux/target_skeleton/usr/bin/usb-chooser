@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[ -r /usr/local/etc/usb.conf ] && . /usr/local/etc/usb.conf
+[ "$USB_ETHERNET" ] && DEFAULTNO=--defaultno
+
+dialog $DEFAULTNO --yes-label "Mass Storage" --no-label "Ethernet" --yesno "Please select USB mode." 0 0
+if [ $? -eq 0 ] ; then
+	# MTP
+	echo "#USB_ETHERNET=y" > /usr/local/etc/usb.conf
+else
+	# Ethernet over USB
+	echo "USB_ETHERNET=y" > /usr/local/etc/usb.conf
+fi
+
+exec /usr/bin/sudo /usr/sbin/usb restart

@@ -1,1 +1,0 @@
-od -1 users -1 =odrocks /boot/local/home /bin/sh sudo,video,audio,tty,input,cpufreq

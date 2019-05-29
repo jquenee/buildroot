@@ -1,0 +1,1 @@
+od -1 users -1 !=nopasswd /media/data/local/home /usr/bin/sh sudo,video,audio,tty,input,cpufreq,mtp

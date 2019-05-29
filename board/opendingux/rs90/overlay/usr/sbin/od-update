@@ -1,0 +1,71 @@
+#!/bin/sh
+
+if [ $# -ne 1 ] ; then
+	echo "Incorrect number of parameters.\nUsage:\n\tod-update <data_dir>"
+	exit 1
+fi
+
+HWVARIANT="`sed 's/.*hwvariant=\([[:alnum:]]\+\).*/\1/' /proc/cmdline`"
+
+BOOTLD=$1/ubiboot-${HWVARIANT}.bin
+KERNEL=$1/uzImage.bin
+ROOTFS=$1/rootfs.squashfs
+MININIT=$1/mininit-syspart
+
+cleanup_rootfs() {
+	[ -z "`grep rootfs_bak /proc/cmdline`" ] && rm -f /boot/update_r.bin
+}
+
+cleanup_mininit() {
+	rm -f /boot/mininit-syspart-new
+}
+
+if [ -r $ROOTFS ] ; then
+	echo "Updating rootfs..."
+	if [ "`grep rootfs_bak /proc/cmdline`" ] ; then
+		pv -p $ROOTFS > /boot/rootfs.squashfs
+	else
+		pv -p $ROOTFS > /boot/update_r.bin
+	fi
+
+	ERR=$?
+	if [ $ERR -ne 0 ] ; then
+		cleanup_rootfs
+		exit $ERR
+	fi
+fi
+
+if [ -r $MININIT ] ; then
+	pv -p $MININIT > /boot/mininit-syspart-new
+	ERR=$?
+	if [ $ERR -ne 0 ] ; then
+		cleanup_rootfs
+		cleanup_mininit
+		exit $ERR
+	fi
+	mv /boot/mininit-syspart-new /boot/mininit-syspart
+fi
+
+if [ -r $KERNEL ] ; then
+	VOLUME_ID=`ubinfo -d 0 -N kernel_bak |head -n1 |sed "s/.*\([[:digit:]]\+\) .*/\1/"`
+	if [ "`grep kernel_bak /proc/cmdline`" ] ; then
+		VOLUME_ID=`expr 1 - $VOLUME_ID`
+	fi
+
+	KERNEL_SIZE=`wc -c $KERNEL |cut -d ' ' -f1`
+
+	echo "Updating kernel..."
+	pv -p $KERNEL | ubiupdatevol /dev/ubi0_$VOLUME_ID -s $KERNEL_SIZE -
+
+	if [ -z "`grep kernel_bak /proc/cmdline`" ] ; then
+		ubirename /dev/ubi0 kernel kernel_bak kernel_bak kernel
+	fi
+fi
+
+if [ -r $BOOTLD ] ; then
+	echo "Updating bootloader..."
+	flash_erase /dev/mtd0 0 1
+	nandwrite -p /dev/mtd0 $BOOTLD
+fi
+
+exit 0
