@@ -74,12 +74,14 @@ mkdir -p /boot/root /boot/dev
 chmod +x /boot/mininit-syspart
 
 echo "Flashing kernel..."
-ubiupdatevol /dev/ubi0_0 /boot/uzImage.bin
-ubiupdatevol /dev/ubi0_1 /boot/uzImage.bin
+cat /boot/uzImage.bin /boot/devicetree.dtb > /boot/kernel.img
+ubiupdatevol /dev/ubi0_0 /boot/kernel.img
+ubiupdatevol /dev/ubi0_1 /boot/kernel.img
 
 # Cleanup
 rm /boot/uzImage.bin
 rm /boot/devicetree.dtb
+rm /boot/kernel.img
 
 dialog --msgbox 'Installation succeded!\nThe device will reboot now.' 7 28
 
