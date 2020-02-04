@@ -1,0 +1,167 @@
+--- a/gio/gdbusauth.c 2020-02-03 20:27:23.000000000 +0100
++++ b/gio/gdbusauth.c 2020-02-03 20:30:00.000000000 +0100
+@@ -1299,9 +1299,9 @@
+                                                     &line_length,
+                                                     cancellable,
+                                                     error);
+-          debug_print ("SERVER: WaitingForBegin, read '%s'", line);
+           if (line == NULL)
+             goto out;
++          debug_print ("SERVER: WaitingForBegin, read '%s'", line);
+           if (g_strcmp0 (line, "BEGIN") == 0)
+             {
+               /* YAY, done! */
+--- a/gio/gdbusmessage.c	2020-02-03 20:27:39.000000000 +0100
++++ b/gio/gdbusmessage.c	2020-02-03 20:31:12.000000000 +0100
+@@ -88,7 +88,7 @@
+ g_memory_buffer_read_int16 (GMemoryBuffer  *mbuf)
+ {
+   gint16 v;
+-
++
+   if (mbuf->pos > mbuf->valid_len - 2)
+     {
+       mbuf->pos = mbuf->valid_len;
+@@ -108,7 +108,7 @@
+ g_memory_buffer_read_uint16 (GMemoryBuffer  *mbuf)
+ {
+   guint16 v;
+-
++
+   if (mbuf->pos > mbuf->valid_len - 2)
+     {
+       mbuf->pos = mbuf->valid_len;
+@@ -128,7 +128,7 @@
+ g_memory_buffer_read_int32 (GMemoryBuffer  *mbuf)
+ {
+   gint32 v;
+-
++
+   if (mbuf->pos > mbuf->valid_len - 4)
+     {
+       mbuf->pos = mbuf->valid_len;
+@@ -148,7 +148,7 @@
+ g_memory_buffer_read_uint32 (GMemoryBuffer  *mbuf)
+ {
+   guint32 v;
+-
++
+   if (mbuf->pos > mbuf->valid_len - 4)
+     {
+       mbuf->pos = mbuf->valid_len;
+@@ -168,7 +168,7 @@
+ g_memory_buffer_read_int64 (GMemoryBuffer  *mbuf)
+ {
+   gint64 v;
+-
++
+   if (mbuf->pos > mbuf->valid_len - 8)
+     {
+       mbuf->pos = mbuf->valid_len;
+@@ -188,7 +188,7 @@
+ g_memory_buffer_read_uint64 (GMemoryBuffer  *mbuf)
+ {
+   guint64 v;
+-
++
+   if (mbuf->pos > mbuf->valid_len - 8)
+     {
+       mbuf->pos = mbuf->valid_len;
+@@ -306,7 +306,7 @@
+     default:
+       break;
+     }
+-
++
+   return g_memory_buffer_write (mbuf, &data, 2);
+ }
+
+@@ -326,7 +326,7 @@
+     default:
+       break;
+     }
+-
++
+   return g_memory_buffer_write (mbuf, &data, 2);
+ }
+
+@@ -346,7 +346,7 @@
+     default:
+       break;
+     }
+-
++
+   return g_memory_buffer_write (mbuf, &data, 4);
+ }
+
+@@ -366,7 +366,7 @@
+     default:
+       break;
+     }
+-
++
+   return g_memory_buffer_write (mbuf, &data, 4);
+ }
+
+@@ -386,7 +386,7 @@
+     default:
+       break;
+     }
+-
++
+   return g_memory_buffer_write (mbuf, &data, 8);
+ }
+
+@@ -406,7 +406,7 @@
+     default:
+       break;
+     }
+-
++
+   return g_memory_buffer_write (mbuf, &data, 8);
+ }
+
+@@ -2727,7 +2727,6 @@
+   if (message->body != NULL)
+     {
+       gchar *tupled_signature_str;
+-      tupled_signature_str = g_strdup_printf ("(%s)", signature_str);
+       if (signature == NULL)
+         {
+           g_set_error (error,
+@@ -2738,7 +2737,8 @@
+           g_free (tupled_signature_str);
+           goto out;
+         }
+-      else if (g_strcmp0 (tupled_signature_str, g_variant_get_type_string (message->body)) != 0)
++      tupled_signature_str = g_strdup_printf ("(%s)", signature_str);
++      if (g_strcmp0 (tupled_signature_str, g_variant_get_type_string (message->body)) != 0)
+         {
+           g_set_error (error,
+                        G_IO_ERROR,
+@@ -3507,10 +3507,10 @@
+               fs = g_string_new (NULL);
+               if (fstat (fds[n], &statbuf) == 0)
+                 {
+-#ifndef MAJOR_MINOR_NOT_FOUND
++#ifndef MAJOR_MINOR_NOT_FOUND
+                   g_string_append_printf (fs, "%s" "dev=%d:%d", fs->len > 0 ? "," : "",
+                                           (gint) major (statbuf.st_dev), (gint) minor (statbuf.st_dev));
+-#endif
++#endif
+                   g_string_append_printf (fs, "%s" "mode=0%o", fs->len > 0 ? "," : "",
+                                           (guint) statbuf.st_mode);
+                   g_string_append_printf (fs, "%s" "ino=%" G_GUINT64_FORMAT, fs->len > 0 ? "," : "",
+@@ -3519,10 +3519,10 @@
+                                           (guint) statbuf.st_uid);
+                   g_string_append_printf (fs, "%s" "gid=%u", fs->len > 0 ? "," : "",
+                                           (guint) statbuf.st_gid);
+-#ifndef MAJOR_MINOR_NOT_FOUND
++#ifndef MAJOR_MINOR_NOT_FOUND
+                   g_string_append_printf (fs, "%s" "rdev=%d:%d", fs->len > 0 ? "," : "",
+                                           (gint) major (statbuf.st_rdev), (gint) minor (statbuf.st_rdev));
+-#endif
++#endif
+                   g_string_append_printf (fs, "%s" "size=%" G_GUINT64_FORMAT, fs->len > 0 ? "," : "",
+                                           (guint64) statbuf.st_size);
+                   g_string_append_printf (fs, "%s" "atime=%" G_GUINT64_FORMAT, fs->len > 0 ? "," : "",

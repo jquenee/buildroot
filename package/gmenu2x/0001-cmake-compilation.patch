@@ -1,0 +1,82 @@
+--- a/CMakeLists.txt	2020-02-04 09:54:13.000000000 +0100
++++ b/CMakeLists.txt	2020-02-04 09:57:14.000000000 +0100
+@@ -9,17 +9,17 @@
+
+ option(CPUFREQ "Enable CPU frequency control" OFF)
+ if (CPUFREQ)
+-	add_compile_definitions(ENABLE_CPUFREQ)
++	add_definitions(-DENABLE_CPUFREQ)
+ endif(CPUFREQ)
+
+ option(CLOCK "Display current time at the bottom of the screen" ON)
+ if (CLOCK)
+-	add_compile_definitions(ENABLE_CLOCK)
++	add_definitions(-DENABLE_CLOCK)
+ endif (CLOCK)
+
+ option(BIND_CONSOLE "Support for binding/unbinding terminal" OFF)
+ if (BIND_CONSOLE)
+-	add_compile_definitions(BIND_CONSOLE)
++	add_definitions(-DBIND_CONSOLE)
+ endif (BIND_CONSOLE)
+
+ set(PLATFORMS "pc, a320, gcw0, nanonote, rs90")
+@@ -30,28 +30,28 @@
+ set_property(CACHE PLATFORM PROPERTY STRINGS pc a320 gcw0 nanonote rs90)
+
+ if (PLATFORM MATCHES "a320")
+-	add_compile_definitions(PLATFORM_A320)
++	add_definitions(-DPLATFORM_A320)
+ 	set(SCREEN_RES "320x240")
+ elseif (PLATFORM MATCHES "gcw0")
+-	add_compile_definitions(PLATFORM_GCW0)
++	add_definitions(-DPLATFORM_GCW0)
+ 	set(SCREEN_RES "320x240")
+ elseif (PLATFORM MATCHES "rs90")
+-	add_compile_definitions(PLATFORM_RS90)
++	add_definitions(-DPLATFORM_RS90)
+ 	set(SCREEN_RES "240x160")
+ elseif (PLATFORM MATCHES "nanonote")
+-	add_compile_definitions(PLATFORM_NANONOTE)
++	add_definitions(-DPLATFORM_NANONOTE)
+ 	set(SCREEN_RES "320x240")
+ elseif (PLATFORM MATCHES "pandora")
+-	add_compile_definitions(PLATFORM_PANDORA)
++	add_definitions(-DPLATFORM_PANDORA)
+ 	set(SCREEN_RES "800x480")
+ elseif (PLATFORM MATCHES "pc")
+-	add_compile_definitions(PLATFORM_PC)
++	add_definitions(-DPLATFORM_PC)
+ 	set(SCREEN_RES "800x480")
+ else()
+ 	message(FATAL_ERROR "PLATFORM must be one of the following: ${PLATFORMS}")
+ endif(PLATFORM MATCHES "a320")
+
+-add_compile_definitions(PLATFORM="${PLATFORM}")
++add_definitions(-DPLATFORM="${PLATFORM}")
+
+ find_package(SDL REQUIRED)
+ find_package(SDL_ttf REQUIRED)
+@@ -77,11 +77,11 @@
+ if(LIBOPK_FOUND)
+ 	set(LIBOPK_LIBRARIES ${LIBOPK_LIBRARY})
+ 	set(LIBOPK_INCLUDE_DIRS ${LIBOPK_INCLUDE_DIR})
+-	add_compile_definitions(HAVE_LIBOPK)
++	add_definitions(-DHAVE_LIBOPK)
+
+ 	option(INOTIFY "Monitor OPK folder with inotify" ON)
+ 	if (INOTIFY)
+-		add_compile_definitions(ENABLE_INOTIFY)
++		add_definitions(-DENABLE_INOTIFY)
+ 	endif (INOTIFY)
+ endif(LIBOPK_FOUND)
+
+@@ -93,7 +93,7 @@
+ if (LIBXDGMIME_FOUND)
+ 	set(LIBXDGMIME_LIBRARIES ${LIBXDGMIME_LIBRARY})
+ 	set(LIBXDGMIME_INCLUDE_DIRS ${LIBXDGMIME_INCLUDE_DIR})
+-	add_compile_definitions(HAVE_LIBXDGMIME)
++	add_definitions(-DHAVE_LIBXDGMIME)
+ endif(LIBXDGMIME_FOUND)
+
+ file(GLOB OBJS src/*.cpp)
