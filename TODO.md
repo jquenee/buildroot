@@ -2,6 +2,13 @@
 * analog stick not active in gMenu2X and in game (eduke32)
   * https://bugzilla.libsdl.org/show_bug.cgi?id=4955
   * no input detected on /dev/input/event3 with evtest
+```
+$ cat /etc/environment 
+LOVE_GRAPHICS_USE_OPENGLES=1
+SDL_FB_BROKEN_MODES=1
+SDL_NOMOUSE=1
+SDL_JOYSTICK_DEVICE=/dev/input/event1
+```
 * gMenu2X screen size detection issue 
 ```
 $ python -c 'import pygame; pygame.init(); infoObject = pygame.display.Info(); print(infoObject);'
