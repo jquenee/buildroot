@@ -22,4 +22,6 @@ define PWSWD_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 board/opendingux/package/pwswd/S91pwswd.sh $(TARGET_DIR)/etc/init.d/S91pwswd.sh
 endef
 
+PWSWD_CONFIG_POST_INSTALL_TARGET_HOOKS += PWSWD_INSTALL_TARGET_CMDS
+
 $(eval $(generic-package))
