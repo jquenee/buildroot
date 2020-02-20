@@ -12,6 +12,15 @@ gcw0 kern.warn kernel: remoteproc remoteproc0: Direct firmware load for rproc-in
 ```
 gcw0 kern.info kernel: input: OpenDingux mouse daemon as /devices/virtual/input/input3
 ```
+```
+sudo evtest
+No device specified, trying to scan all of /dev/input/event*
+Available devices:
+/dev/input/event0:	pwm-vibrator
+/dev/input/event1:	gcw0-audio Headphones
+/dev/input/event2:	board:gpio-keys
+/dev/input/event3:	OpenDingux mouse daemon
+```
 * input tester needs to be rewrite for using SDL2/gamepad API
 * gcwconnect needs to be rewrite for using iw tool
 * iw wlan0 issue
