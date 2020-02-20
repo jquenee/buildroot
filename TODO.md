@@ -1,5 +1,6 @@
 # GCW0 Issue
 * X11 compilation issue (EGL_NO_X11)
+* gamepad stick not active in gMenu2X and in game (eduke32)
 * gMenu2X screen size detection issue 
 * gMenu2X random crash during menu browsing
 * hardware scaling
