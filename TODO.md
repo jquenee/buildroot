@@ -13,7 +13,7 @@ $ python -c 'import pygame; pygame.init(); infoObject = pygame.display.Info(); p
          losses =  (0, 0, 0, 8),
          current_w = 320, current_h = 240
 >
-
+```
 * gMenu2X random crash during menu browsing
 * hardware scaling (certainly VPU issue)
 ```
