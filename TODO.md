@@ -1,5 +1,4 @@
 # GCW0 Issue (based on jz-5.3-gcw0 https://github.com/OpenDingux/linux.git)
-* X11 compilation issue (EGL_NO_X11)
 * analog stick not active in gMenu2X and in game (eduke32)
   * https://bugzilla.libsdl.org/show_bug.cgi?id=4955
 * gMenu2X screen size detection issue 
