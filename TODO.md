@@ -1,6 +1,7 @@
 # GCW0 Issue (based on jz-5.3-gcw0 https://github.com/OpenDingux/linux.git)
 * analog stick not active in gMenu2X and in game (eduke32)
   * https://bugzilla.libsdl.org/show_bug.cgi?id=4955
+  * no input detected on /dev/input/event3 with evtest
 * gMenu2X screen size detection issue 
 ```
 $ python -c 'import pygame; pygame.init(); infoObject = pygame.display.Info(); print(infoObject);'
