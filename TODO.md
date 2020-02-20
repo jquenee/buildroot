@@ -2,6 +2,18 @@
 * analog stick not active in gMenu2X and in game (eduke32)
   * https://bugzilla.libsdl.org/show_bug.cgi?id=4955
 * gMenu2X screen size detection issue 
+```
+$ python -c 'import pygame; pygame.init(); infoObject = pygame.display.Info(); print(infoObject);'
+<VideoInfo(hw = 1, wm = 0,video_mem = 900
+         blit_hw = 0, blit_hw_CC = 0, blit_hw_A = 0,
+         blit_sw = 0, blit_sw_CC = 0, blit_sw_A = 0,
+         bitsize  = 32, bytesize = 4,
+         masks =  (16711680, 65280, 255, 0),
+         shifts = (16, 8, 0, 0),
+         losses =  (0, 0, 0, 8),
+         current_w = 320, current_h = 240
+>
+
 * gMenu2X random crash during menu browsing
 * hardware scaling (certainly VPU issue)
 ```
