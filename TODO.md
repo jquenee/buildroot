@@ -16,6 +16,9 @@ gcw0 kern.info kernel: input: OpenDingux mouse daemon as /devices/virtual/input/
 * gcwconnect needs to be rewrite for using iw tool
 * iw wlan0 issue
 ```
+/etc/udev/rules.d/81-modules-unload.rules
+```
+```
 $ iw dev wlan0 link
 Not connected.
 $ sudo iw dev wlan0 connect TNCAP664B1D
