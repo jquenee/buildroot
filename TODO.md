@@ -1,4 +1,6 @@
-# GCW0 Issue (based on jz-5.3-gcw0 https://github.com/OpenDingux/linux.git)
+# GCW0 Issue
+* Orignial https://github.com/gcwnow/linux/tree/jz-3.12
+* Based on https://github.com/OpenDingux/linux/tree/jz-5.3
 * analog stick not active in gMenu2X and in game (eduke32)
   * https://bugzilla.libsdl.org/show_bug.cgi?id=4955
   * no input detected on /dev/input/event3 with evtest
